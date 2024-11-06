@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Шифрування</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    .output {
+      margin-top: 20px;
+    }
+    .output p {
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Шифрування тексту</h2>
+  <textarea id="inputString" placeholder="Введіть текст для шифрування..."></textarea><br>
+  <button onclick="encryptText()">Зашифрувати</button>
+
+  <div class="output">
+    <p><strong>Зашифрований текст:</strong> <span id="encryptedString"></span></p>
+  </div>
+
+  <script>
+    function encryptText() {
+      let inputString = document.getElementById('inputString').value;
+
+      // Функція для шифрування
+      function shiftLetter(char) {
+        if (char >= 'a' && char <= 'z') {
+          // Англійські літери (малі)
+          return String.fromCharCode(((char.charCodeAt(0) - 97 + 1) % 26) + 97);
+        } else if (char >= 'A' && char <= 'Z') {
+          // Англійські літери (великі)
+          return String.fromCharCode(((char.charCodeAt(0) - 65 + 1) % 26) + 65);
+        } else if (char >= 'а' && char <= 'я') {
+          // Українські літери (малі)
+          return String.fromCharCode(((char.charCodeAt(0) - 1072 + 1) % 32) + 1072);
+        } else if (char >= 'А' && char <= 'Я') {
+          // Українські літери (великі)
+          return String.fromCharCode(((char.charCodeAt(0) - 1040 + 1) % 32) + 1040);
+        } else {
+          // Інші символи залишаються без змін
+          return char;
+        }
+      }
+
+      // Шифруємо весь текст
+      let encryptedString = inputString.split('').map(shiftLetter).join('');
+
+      // Вивести зашифрований текст
+      document.getElementById('encryptedString').innerText = encryptedString;
+    }
+  </script>
+</body>
+</html>
