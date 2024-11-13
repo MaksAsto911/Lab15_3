@@ -42,6 +42,16 @@
 
       // Функція для шифрування
       function shiftLetter(char) {
+        // Спочатку заміняємо символи "і", "ї" та "є" на їх замінники
+        if (char === 'і') {
+          return 'ї';
+        } else if (char === 'ї') {
+          return 'й';
+        } else if (char === 'є') {
+          return 'ж';
+        }
+        
+        // Інші символи обробляються як звичайні літери
         if (char >= 'a' && char <= 'z') {
           // Англійські літери (малі)
           return String.fromCharCode(((char.charCodeAt(0) - 97 + 1) % 26) + 97);
